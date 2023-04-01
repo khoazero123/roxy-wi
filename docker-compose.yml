@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  roxy-wi:
+    image: roxy-wi:test
+    # image: registry.roxy-wi.org/roxy-wi
+    build: .
+    ports:
+      - "8443:443"
+      - "8765:8765"
+    environment:
+      - MYSQL_ENABLE=0
+      - MYSQL_USER="roxy-wi"
+      - MYSQL_PASS="roxy-wi"
+    volumes:
+      - roxy-wi-data:/var/roxy-wi/lib
+      - roxy-wi-conf:/etc/roxy-wi
+      - ./config_other/httpd/roxy-wi.conf:/etc/apache2/sites-available/roxy-wi.conf
+      # - ./:/var/www/haproxy-wi
+
+  rabbitmq:
+    image: rabbitmq:3
+    ports:
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=roxy-wi
+      - RABBITMQ_DEFAULT_PASS=roxy-wi123
+
+volumes:
+  roxy-wi-data:
+  roxy-wi-conf:
+
+# docker build -t roxy-wi:test .
+# docker run --rm --name roxy-wi -p 844:443 -p 8765:8765 -v roxy-wi-conf:/etc/roxy-wi/ -v roxy-wi-data:/var/roxy-wi/lib roxy-wi:test .

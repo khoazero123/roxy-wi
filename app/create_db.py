@@ -69,7 +69,7 @@ def default_values():
 		{'param': 'checker_check_interval', 'value': '1', 'section': 'monitoring', 'desc': 'Check interval for Checker (in minutes)', 'group': '1'},
 		{'param': 'smon_ssl_expire_warning_alert', 'value': '14', 'section': 'monitoring', 'desc': 'Warning alert about a SSL certificate expiration (in days)', 'group': '1'},
 		{'param': 'smon_ssl_expire_critical_alert', 'value': '7', 'section': 'monitoring', 'desc': 'Critical alert about a SSL certificate expiration (in days)', 'group': '1'},
-		{'param': 'rabbitmq_host', 'value': '127.0.0.1', 'section': 'rabbitmq', 'desc': 'RabbitMQ-server host', 'group': '1'},
+		{'param': 'rabbitmq_host', 'value': 'rabbitmq', 'section': 'rabbitmq', 'desc': 'RabbitMQ-server host', 'group': '1'},
 		{'param': 'rabbitmq_port', 'value': '5672', 'section': 'rabbitmq', 'desc': 'RabbitMQ-server port', 'group': '1'},
 		{'param': 'rabbitmq_port', 'value': '5672', 'section': 'rabbitmq', 'desc': 'RabbitMQ-server port', 'group': '1'},
 		{'param': 'rabbitmq_vhost', 'value': '/', 'section': 'rabbitmq', 'desc': 'RabbitMQ-server vhost', 'group': '1'},
