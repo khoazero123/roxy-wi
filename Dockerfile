@@ -26,13 +26,16 @@ RUN mkdir -p /var/lib/roxy-wi/ /var/lib/roxy-wi/keys/ /var/lib/roxy-wi/configs/ 
 
 RUN mv haproxy-wi/roxy-wi.cfg /etc/roxy-wi
 RUN openssl req -newkey rsa:4096 -nodes -keyout /var/www/haproxy-wi/app/certs/haproxy-wi.key -x509 -days 10365 -out /var/www/haproxy-wi/app/certs/haproxy-wi.crt -subj "/C=US/ST=Almaty/L=Springfield/O=Roxy-WI/OU=IT/CN=*.roxy-wi.org/emailAddress=aidaho@roxy-wi.org"
+VOLUME [ "/var/lib/roxy-wi/", "/etc/roxy-wi" ]
 RUN chown -R www-data:www-data /var/www/haproxy-wi/ /var/lib/roxy-wi/ /var/log/roxy-wi/ /etc/roxy-wi/
 
 # RUN systemctl daemon-reload      
 # RUN systemctl restart httpd
 # RUN systemctl restart rsyslog
-
+# RUN usermod -u 1000 www-data;
+USER www-data
 RUN /var/www/haproxy-wi/app/create_db.py
+USER root
 RUN chown -R www-data:www-data /var/www/haproxy-wi/
 
 RUN cp haproxy-wi/config_other/httpd/roxy-wi.conf /etc/apache2/sites-available/roxy-wi.conf
@@ -40,7 +43,6 @@ RUN a2ensite roxy-wi.conf
 
 COPY ./config_other/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-VOLUME [ "/var/roxy-wi/lib", "/etc/roxy-wi" ]
 EXPOSE 443 8765
 
 # CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

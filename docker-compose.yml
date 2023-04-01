@@ -8,15 +8,19 @@ services:
     ports:
       - "8443:443"
       - "8765:8765"
+      - "5678:5678"
     environment:
       - MYSQL_ENABLE=0
       - MYSQL_USER="roxy-wi"
       - MYSQL_PASS="roxy-wi"
+      - DEBUG_ENABLE=true
+      - DEBUG_WAIT_FOR_CLIENT=false
     volumes:
       - roxy-wi-data:/var/roxy-wi/lib
       - roxy-wi-conf:/etc/roxy-wi
       - ./config_other/httpd/roxy-wi.conf:/etc/apache2/sites-available/roxy-wi.conf
-      # - ./:/var/www/haproxy-wi
+      - ./config_other/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+      - ./:/var/www/haproxy-wi
 
   rabbitmq:
     image: rabbitmq:3

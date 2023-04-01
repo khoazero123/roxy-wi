@@ -152,6 +152,7 @@ def main():
 
 @retry(delay=1, tries=6)
 def check_user_status():
+    return True
     if sql.select_user_status():
         return True
     else:

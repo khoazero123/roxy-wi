@@ -3626,6 +3626,7 @@ def select_user_status():
 
 
 def check_user_status():
+	return True
 	try:
 		UserName.get().Status
 	except Exception as e:
